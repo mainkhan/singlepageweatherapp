@@ -15,7 +15,7 @@ Your challenge for this project:
 4.	Test your components using a testing framework of choice (Jest, Mocha, Chai, etc)
 
 ## Specifications
-###Frontend:
+### Frontend:
 - react + redux
 - ES6 syntax encouraged (Typescript allowed; Use only plain JavaScript)
 - Redux for state management (not a requirement, but use if you feel like it would help)
