@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const routes = require('./routes/routes');
 
 // define the Express app
 const app = express();
@@ -22,6 +23,9 @@ app.use(cors());
 
 // log HTTP requests
 app.use(morgan('combined'));
+
+app.use('/api/v1', routes);
+
 
 // retrieve all questions
 app.get('/', (req, res) => {
