@@ -22,7 +22,7 @@ class Users extends Component {
     return (
       <div className="container">
         <div className="row">
-          {this.state.users === null && <p>Loading users...</p>}
+          {this.state.users === null && <p>No registered users. Try adding one!</p>}
           {
             this.state.users && this.state.users.map(user => (
               <div key={user.id} className="col-sm-12 col-md-4 col-lg-3">

@@ -7,7 +7,9 @@ function NavBar() {
       <Link className="navbar-brand" to="/">
         Welcome to User Management!
       </Link>
-      <Button variant="success">Success</Button>
+      <Link to="/newUser">
+      <button variant="success">New User</button>
+      </Link>
     </nav>
   );
 }
