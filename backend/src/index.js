@@ -4,13 +4,17 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
-const routes = require('./routes/routes');
 
 // define the Express app
 const app = express();
 
 // the database
-const users = [];
+let users = [{
+        id: "mainkhan",
+        firstname: "Main",
+        lastname: "Khan",
+        password: 12345
+    }];
 
 // enhance your app security with Helmet
 app.use(helmet());
@@ -24,54 +28,60 @@ app.use(cors());
 // log HTTP requests
 app.use(morgan('combined'));
 
-app.use('/api/v1', routes);
-
-
-// retrieve all questions
+// retrieve all users
 app.get('/', (req, res) => {
-  const qs = users.map(q => ({
-    id: q.id,
-    password: q.title,
-    description: q.description,
-    answers: q.answers.length,
+  const qs = users.map(u => ({
+    id: u.id,
+    firstname: u.firstname,
+    lastname: u.lastname,
+    password: u.password,
   }));
   res.send(qs);
 });
 
 // get a specific question
 app.get('/:id', (req, res) => {
-  const question = questions.filter(q => (q.id === parseInt(req.params.id)));
-  if (question.length > 1) return res.status(500).send();
-  if (question.length === 0) return res.status(404).send();
-  res.send(question[0]);
+  const user = users.filter(q => (q.id === parseInt(req.params.id)));
+  if (user.length > 1) return res.status(500).send();
+  if (user.length === 0) return res.status(404).send();
+  res.send(user[0]);
 });
 
-// insert a new question
+// insert a new user
 app.post('/', (req, res) => {
-  const {title, description} = req.body;
-  const newQuestion = {
-    id: questions.length + 1,
-    title,
-    description,
-    answers: [],
+  const {id, firstname, lastname, password} = req.body;
+  console.log(req.body);
+  const newUser = {
+    id: id,
+    firstname: firstname,
+    lastname: lastname,
+    password: password
   };
-  questions.push(newQuestion);
+  users.push(newUser);
   res.status(200).send();
 });
 
-// insert a new answer to a question
-app.post('/answer/:id', (req, res) => {
-  const {answer} = req.body;
+// remove a user
+app.delete('/:id', (req, res) => {
+  // remove from the master list (db)
+  console.log(req.params.id);
+  const index = users.findIndex(u => u.id === req.params.id);
 
-  const question = questions.filter(q => (q.id === parseInt(req.params.id)));
-  if (question.length > 1) return res.status(500).send();
-  if (question.length === 0) return res.status(404).send();
+  if (index >= 0){
+    console.log("deleting " + req.params.id + " -- index is " + index);
+    delete users[index];
 
-  question[0].answers.push({
-    answer,
-  });
+    // prune nulls from the list
+    var filtered = users.filter(function (el) {
+    return el != null;
+    });
+    users = filtered;
 
-  res.status(200).send();
+    return res.status(500).send();
+  } 
+  else{
+    return res.status(404).send();
+  }
 });
 
 // start the server
