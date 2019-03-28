@@ -26,15 +26,16 @@ class Users extends Component {
           {
             this.state.users && this.state.users.map(user => (
               <div key={user.id} className="col-sm-12 col-md-4 col-lg-3">
-                <Link to={`/users/${user.id}`}>
+                
                   <div className="card text-white bg-success mb-3">
-                    <div className="card-header">Answers: {user.answers}</div>
+                    <div className="card-header">User ID: {user.id}</div>
                     <div className="card-body">
-                      <h4 className="card-title">{user.title}</h4>
-                      <p className="card-text">{user.description}</p>
+                      <h4 className="card-title">{user.firstname + " " + user.lastname}</h4>
+                      <Link to={`/delete/${user.id}`}>
+                      <p className="card-text">delete user?</p>
+                      </Link>
                     </div>
                   </div>
-                </Link>
               </div>
             ))
           }

@@ -5,8 +5,9 @@ function NavBar() {
   return (
     <nav className="navbar navbar-dark bg-primary fixed-top">
       <Link className="navbar-brand" to="/">
-        Weather
+        Welcome to User Management!
       </Link>
+      <Button variant="success">Success</Button>
     </nav>
   );
 }
