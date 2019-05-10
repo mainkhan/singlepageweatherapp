@@ -1,5 +1,5 @@
-# Coding Exercise for Catapult
-Coding Challenge for Catapult Sports.
+# Coding Exercise to learn React
+Coding Challenge to learn React
 
 Your goal is to set up a single page application (SPA) using React that will consume an API, display information for the user using any charting library of your choice. The topic, application design (how the website looks and feels) is up to you.
 
